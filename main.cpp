@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
 
 int main(int argc, char* argv[]) {
 
@@ -14,22 +15,42 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     // Store file
-    std::string file = argv[1];
+    for (int i {1}; i < argc; ++i) {
+        std::string file = argv[i];
 
-    // Open file
-    std::ifstream infile(file);
+        // Open file
+        std::ifstream infile(file);
 
-    if (!infile) {
-        std::cout << "Failed to open file.\n";
-        return 1;
+        if (!infile) {
+            std::cout << "Failed to open file.\n" << std::endl;
+            return 1;
+        }
+       
+        /* read one line to show it works
+        std::string line;
+        if (std::getline(infile, line))
+            std::cout << line << std::endl;
+        */
+        // read all lines in loop
+
+        std::cout << "Analyzing file: " << file << std::endl;
+        
+        std::string line;
+        std::string word;
+
+        while (std::getline(infile, line)) { 
+            std::istringstream stream(line);
+            while (stream >> word) {
+                std::cout << word << std::endl;
+            }
+        }
+        std::cout << "\n" << std::endl;
+
+        infile.close();
     }
-   
-    // read one line to show it works
-    std::string line;
-    if (std::getline(infile, line))
-        std::cout << line << std::endl;
 
-    infile.close();
+    // PRINT file name
+    //std::cout << "Analyzing file: " << file << std::endl;
 
 
     return 0;
