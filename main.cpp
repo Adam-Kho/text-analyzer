@@ -5,10 +5,11 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <unordered_map>
+#include <unordered_map> // built in hashmap
+#include <vector>        // store map entries in a vector
+#include <algorithm>     // sort vector
 
 int main(int argc, char* argv[]) {
-
 
     // Check if user gave file
     if (argc < 2) {
@@ -28,14 +29,8 @@ int main(int argc, char* argv[]) {
             std::cout << "Failed to open file.\n" << std::endl;
             return 1;
         }
-       
-        /* read one line to show it works
-        std::string line;
-        if (std::getline(infile, line))
-            std::cout << line << std::endl;
-        */
+        
         // read all lines in loop
-
         std::cout << "Analyzing file: " << file << std::endl;
         
         std::string line;
@@ -57,13 +52,35 @@ int main(int argc, char* argv[]) {
                 }
             }
         }
+
+        /* wordCounts is map
+        key = word | value = count
+        Each element is a pair<stringm int>
+        pair.first = the word
+        pair.second = the count */
         for (auto &pair : wordCounts) {
             std::cout << pair.first << ": " << pair.second << std::endl;
         }
-        std::cout << "\n" << std::endl;
-
+        // .begin() -> start of map | .end() -> end of map
         infile.close();
     }
+    // unordered_map cannot be sorted BUT vector can
+    // copy all (word, count) pairs into a vector
+    std::vector<std::pair<std::string, int>>wordVector(wordCounts.begin(), wordCounts.end());
+
+    // Compare two word-count pairs, look only at their counts, bigger->first
+    std::sort(wordVector.begin(), wordVector.end(), [](const std::pair<std::string, int>& a, 
+      const std::pair<std::string, int>& b) {
+        return a.second > b.second; // sort in descending order
+      });
+
+    std::cout << "\nTop 10 words across provided file(s):\n";
+    for (size_t i {0}; i < 10 && i < wordVector.size(); ++i) {
+        std::cout << wordVector[i].first << ": " << wordVector[i].second << std::endl;
+    }
+
+    std::cout << "\n" << std::endl;
+
 
     // PRINT file name
     //std::cout << "Analyzing file: " << file << std::endl;
@@ -71,3 +88,5 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+
+
