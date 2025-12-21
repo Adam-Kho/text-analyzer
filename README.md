@@ -29,11 +29,11 @@ Simply run:
 You may add as many files as you wish.
 
 * How it works
-Checks if files are provided
-Opens each file and reads its contents line by line
-Splits lines into words and normalizes them (lowercase + remove punctuation)
-Word count using a hashmap
-Sorts words by frequency and displays top 10 words
+1. Checks if files are provided
+2. Opens each file and reads its contents line by line
+3. Splits lines into words and normalizes them (lowercase + remove punctuation)
+4. Word count using a hashmap
+5. Sorts words by frequency and displays top 10 words
 
 * Features
 IN PROGRESS
