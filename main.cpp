@@ -17,7 +17,8 @@ int main(int argc, char* argv[]) {
         std::cout << "No files to analyze.\n" << std::endl;
         return 1;
     }
-    // LIKE Key = std:string & Value = int
+
+    // Key = std:string & Value = int | wordCounts = map
     std::unordered_map<std::string, int> wordCounts;
 
     // Store file
@@ -27,16 +28,7 @@ int main(int argc, char* argv[]) {
         processFile(argv[i], wordCounts);
     }
 
-        /* wordCounts is map
-        key = word | value = count
-        Each element is a pair<stringm int>
-        pair.first = the word
-        pair.second = the count */
-/* PRINTING EACH WORD AND COUNT | DEBUGGING |
-        for (auto &pair : wordCounts) {
-            std::cout << pair.first << ": " << pair.second << std::endl;
-        } */
-           // Call top words function
+    // Call top words function
     auto topWords = getTopWords(wordCounts, 10);
     std::cout << "Top 10 words across provided file(s):\n";
     for (const auto &pair : topWords) {

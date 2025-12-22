@@ -38,6 +38,7 @@ void processFile(const std::string &filename, std::unordered_map<std::string, in
     }
     infile.close();
 }
+
 // Normalizes a single word
 std::string normalizeWord(const std::string &word) {
     std::string result;

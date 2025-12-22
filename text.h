@@ -13,8 +13,6 @@
 #include <vector>        // store map entries in a vector
 #include <algorithm>     // sort vector
 
-
-
 // Updates the word count for one file
 void processFile(const std::string &filename, std::unordered_map<std::string, int> &wordCounts);
 
